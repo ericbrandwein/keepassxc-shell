@@ -23,10 +23,10 @@ password = getpass.getpass(passwordMesssage)
 keepassxcBinary = "keepassxc-cli"
 
 
-def getNextCommand():
-	requested = input('> ').split(' ')
+def parseCommand(requested):
+	requested = requested.strip().split(' ')
 	command = [keepassxcBinary]
-	if requested[0] in ['help', '?']:
+	if requested[0] in ['', 'help', '?']:
 		command.append('--help')
 	else:
 		command += [requested[0], database]
@@ -38,6 +38,7 @@ def getNextCommand():
 
 
 while True:
-	process = Popen(getNextCommand(), stdin=PIPE)
+	command = parseCommand(input('KeepassXC> '))
+	process = Popen(command, stdin=PIPE)
 	process.communicate(input=bytes(password, 'utf-8'))
 	print()
