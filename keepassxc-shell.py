@@ -23,7 +23,7 @@ keepassxcBinary = "keepassxc-cli"
 
 
 def getNextCommand():
-	requested = input('> ').split(' ', 1)
+	requested = input('> ').split(' ')
 	command = [keepassxcBinary]
 	if requested[0] in ['help', '?']:
 		command.append('--help')
@@ -31,7 +31,7 @@ def getNextCommand():
 		command += [requested[0], database]
 
 	if len(requested) > 1:
-		command.append(requested[1])
+		command += requested[1:]
 
 	return command
 
