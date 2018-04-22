@@ -17,7 +17,8 @@ if len(sys.argv) < 2:
 	sys.exit(1)
 
 database = sys.argv[1]
-password = getpass.getpass("Insert password: ")
+passwordMesssage = "Insert password for {}: ".format(database)
+password = getpass.getpass(passwordMesssage)
 
 keepassxcBinary = "keepassxc-cli"
 
