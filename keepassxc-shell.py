@@ -4,7 +4,7 @@ import argparse
 import sys
 import getpass
 from subprocess import Popen, PIPE, STDOUT
-
+import shlex
 
 parser = argparse.ArgumentParser(
 	description='Shell for keepassxc-cli, '
@@ -24,15 +24,15 @@ keepassxcBinary = "keepassxc-cli"
 
 
 def parseCommand(requested):
-	requested = requested.strip().split(' ')
+	arguments = shlex.split(requested)
 	command = [keepassxcBinary]
-	if requested[0] in ['', 'help', '?']:
+	if arguments[0] in ['', 'help', '?']:
 		command.append('--help')
 	else:
-		command += [requested[0], database]
+		command += [arguments[0], database]
 
-	if len(requested) > 1:
-		command += requested[1:]
+	if len(arguments) > 1:
+		command += arguments[1:]
 
 	return command
 
